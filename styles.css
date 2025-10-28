@@ -1,0 +1,383 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #16161f;
+  --bg-card: #1e1e2e;
+  --border-color: #2a2a3e;
+  --text-primary: #e4e4e7;
+  --text-secondary: #a1a1aa;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-green: #10b981;
+  --accent-yellow: #f59e0b;
+  --accent-red: #ef4444;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header-content h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-card);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.sensor-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.sensor-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-blue);
+}
+
+.sensor-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.sensor-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  background: var(--bg-secondary);
+}
+
+.temperature-icon {
+  background: rgba(59, 130, 246, 0.1);
+}
+.humidity-icon {
+  background: rgba(6, 182, 212, 0.1);
+}
+.ph-icon {
+  background: rgba(168, 85, 247, 0.1);
+}
+.turbidity-icon {
+  background: rgba(14, 165, 233, 0.1);
+}
+.tds-icon {
+  background: rgba(139, 92, 246, 0.1);
+}
+.conductivity-icon {
+  background: rgba(234, 179, 8, 0.1);
+}
+
+.sensor-info h3 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.sensor-status {
+  font-size: 0.75rem;
+  color: var(--accent-green);
+  padding: 0.125rem 0.5rem;
+  background: rgba(16, 185, 129, 0.1);
+  border-radius: 0.25rem;
+}
+
+.sensor-value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.sensor-value .value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sensor-value .unit {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.sensor-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.trend-indicator {
+  font-weight: 600;
+}
+
+.trend-indicator.positive {
+  color: var(--accent-green);
+}
+
+.trend-indicator.negative {
+  color: var(--accent-red);
+}
+
+.trend-text {
+  color: var(--text-secondary);
+}
+
+/* Charts Section */
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.chart-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+canvas {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+/* Adicionando estilos para loading spinner */
+.loading {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  width: 4px;
+  background: var(--accent-green);
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.lds-facebook div:nth-child(1) {
+  left: 2px;
+  animation-delay: -0.24s;
+}
+
+.lds-facebook div:nth-child(2) {
+  left: 8px;
+  animation-delay: -0.12s;
+}
+
+.lds-facebook div:nth-child(3) {
+  left: 14px;
+  animation-delay: 0;
+}
+
+@keyframes lds-facebook {
+  0% {
+    top: 2px;
+    height: 16px;
+  }
+  50%,
+  100% {
+    top: 6px;
+    height: 8px;
+  }
+}
+
+/* Adicionando estilos para logs e controles */
+.controls-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.logs-card,
+.actions-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.logs-card h3,
+.actions-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.logs-container {
+  max-height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.log {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--bg-secondary);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.logHora {
+  color: var(--text-secondary);
+  font-family: monospace;
+  min-width: 80px;
+}
+
+.separador {
+  width: 1px;
+  height: 20px;
+  background: var(--border-color);
+}
+
+.logDado {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: var(--accent-blue);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+
+  .controls-section {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Dashboard de Sensores</title>
+    <link rel="stylesheet" href="styles.css"><!-- Link para o arquivo CSS externo -->
+    <!-- Adicionando bibliotecas necessárias: Chart.js, MQTT.js e Toastr -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://unpkg.com/mqtt@5.3.0/dist/mqtt.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+
+
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1>Dashboard Jaguaribe Vive</h1>
+                <p class="subtitle">Monitoramento em Tempo Real</p>
+            </div>
+            <!-- Atualizando indicador de status para mostrar conexão MQTT -->
+            <div class="status-indicator" id="statusInfo">
+                <div class="loading">
+                    <div class="lds-facebook">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="status">Conectando...</div>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <!-- Temperatura -->
+            <div class="sensor-card" data-sensor="temperature">
+                <div class="sensor-header">
+                    <div class="sensor-icon temperature-icon">🌡️</div>
+                    <div class="sensor-info">
+                        <h3>Temperatura</h3>
+                        <span class="sensor-status">Normal</span>
+                    </div>
+                </div>
+                <div class="sensor-value">
+                    <span class="value" id="temp-value">--</span>
+                    <span class="unit">°C</span>
+                </div>
+                <div class="sensor-trend">
+                    <span class="trend-indicator" id="temp-trend">--</span>
+                    <span class="trend-text">última leitura</span>
+                </div>
+            </div>
+
+            <!-- Removendo card de Umidade pois não está nos tópicos MQTT -->
+
+            <!-- pH -->
+            <div class="sensor-card" data-sensor="ph">
+                <div class="sensor-header">
+                    <div class="sensor-icon ph-icon">⚗️</div>
+                    <div class="sensor-info">
+                        <h3>pH</h3>
+                        <span class="sensor-status">Normal</span>
+                    </div>
+                </div>
+                <div class="sensor-value">
+                    <span class="value" id="ph-value">--</span>
+                    <span class="unit">pH</span>
+                </div>
+                <div class="sensor-trend">
+                    <span class="trend-indicator" id="ph-trend">--</span>
+                    <span class="trend-text">última leitura</span>
+                </div>
+            </div>
+
+            <!-- Turbidez -->
+            <div class="sensor-card" data-sensor="turbidity">
+                <div class="sensor-header">
+                    <div class="sensor-icon turbidity-icon">🌊</div>
+                    <div class="sensor-info">
+                        <h3>Turbidez</h3>
+                        <span class="sensor-status">Normal</span>
+                    </div>
+                </div>
+                <div class="sensor-value">
+                    <span class="value" id="turbidity-value">--</span>
+                    <span class="unit">NTU</span>
+                </div>
+                <div class="sensor-trend">
+                    <span class="trend-indicator" id="turbidity-trend">--</span>
+                    <span class="trend-text">última leitura</span>
+                </div>
+            </div>
+
+            <!-- Sólidos Dissolvidos -->
+            <div class="sensor-card" data-sensor="tds">
+                <div class="sensor-header">
+                    <div class="sensor-icon tds-icon">⚪</div>
+                    <div class="sensor-info">
+                        <h3>Sólidos Dissolvidos</h3>
+                        <span class="sensor-status">Normal</span>
+                    </div>
+                </div>
+                <div class="sensor-value">
+                    <span class="value" id="tds-value">--</span>
+                    <span class="unit">ppm</span>
+                </div>
+                <div class="sensor-trend">
+                    <span class="trend-indicator" id="tds-trend">--</span>
+                    <span class="trend-text">última leitura</span>
+                </div>
+            </div>
+
+            <!-- Condutividade -->
+            <div class="sensor-card" data-sensor="conductivity">
+                <div class="sensor-header">
+                    <div class="sensor-icon conductivity-icon">⚡</div>
+                    <div class="sensor-info">
+                        <h3>Condutividade</h3>
+                        <span class="sensor-status">Normal</span>
+                    </div>
+                </div>
+                <div class="sensor-value">
+                    <span class="value" id="conductivity-value">--</span>
+                    <span class="unit">μS/cm</span>
+                </div>
+                <div class="sensor-trend">
+                    <span class="trend-indicator" id="conductivity-trend">--</span>
+                    <span class="trend-text">última leitura</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adicionando gráficos Chart.js para todos os sensores -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <h3>Temperatura ao Longo do Tempo</h3>
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Turbidez ao Longo do Tempo</h3>
+                <canvas id="canvasTurbidez"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Sólidos Dissolvidos ao Longo do Tempo</h3>
+                <canvas id="canvasSolidos"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Condutividade ao Longo do Tempo</h3>
+                <canvas id="canvasCondutividade"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>pH ao Longo do Tempo</h3>
+                <canvas id="canvasPH"></canvas>
+            </div>
+        </div>
+
+        <!-- Adicionando seção de logs e controles -->
+        <div class="controls-section">
+            <div class="logs-card">
+                <h3>Histórico de Leituras</h3>
+                <div id="logs" class="logs-container"></div>
+            </div>
+            <div class="actions-card">
+                <button id="save" class="btn btn-primary">
+                    <i class="fa fa-download"></i> Salvar Dados (CSV)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="mqtt.min.js"></script>
+    <script src="chartjs.min.js"></script>
+</body>
+</html>
