@@ -4,9 +4,9 @@
 //import toastr from "toastr"
 
 document.addEventListener("DOMContentLoaded", () => {
-  //const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt')
+  const client = mqtt.connect('wss://broker.emqx.io:8084/mqtt')
   //const client = mqtt.connect("wss://ec2-54-233-175-183.sa-east-1.compute.amazonaws.com:8084/mqtt")
-  const client = mqtt.connect("wss://localhost:8084/mqtt")
+  //const client = mqtt.connect("wss://localhost:8084/mqtt")
   const data = []
 
   // Tópicos MQTT para cada sensor
