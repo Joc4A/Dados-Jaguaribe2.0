@@ -57,7 +57,24 @@
                 </div>
             </div>
 
-            <!-- Removendo card de Umidade pois não está nos tópicos MQTT -->
+            <!-- Umidade -->
+            <div class="sensor-card" data-sensor="Umidade">
+                <div class="sensor-header">
+                    <div class="sensor-icon ph-icon">☔</div>
+                    <div class="sensor-info">
+                        <h3>Umidade</h3>
+                        <span class="sensor-status">Normal</span>
+                    </div>
+                </div>
+                <div class="sensor-value">
+                    <span class="value" id="ph-value">--</span>
+                    <span class="unit">%</span>
+                </div>
+                <div class="sensor-trend">
+                    <span class="trend-indicator" id="ph-trend">--</span>
+                    <span class="trend-text">última leitura</span>
+                </div>
+            </div>
 
             <!-- pH -->
             <div class="sensor-card" data-sensor="ph">
@@ -141,6 +158,10 @@
             <div class="chart-card">
                 <h3>Temperatura ao Longo do Tempo</h3>
                 <canvas id="canvas"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Umidade ao Longo do Tempo</h3>
+                <canvas id="canvasUmidade"></canvas>
             </div>
             <div class="chart-card">
                 <h3>Turbidez ao Longo do Tempo</h3>
