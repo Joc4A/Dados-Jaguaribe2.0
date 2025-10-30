@@ -84,9 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
           grid: {
             color: "#2a2a3e",
           },
-                  
-        min: label === "Temperatura" ? 0 : undefined,
-        max: label === "Temperatura" ? 100 : undefined,
         },
         x: {
           title: {
