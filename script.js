@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
         unit = "ºC"
         sensorName = "Temperatura"
         break
-      case tempTopic:
+      case umidadeTopic:
         chart = window.myLineTemp
         unit = "%"
         sensorName = "Umidade"
