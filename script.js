@@ -107,7 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   })
 
-  // Criar configurações para cada gráfico
+  // Criar configurações para cada gráfico 
+  //configurações da linha vertical
   const configTemp = createChartConfig("Temperatura", "Temperatura (°C)")
   const configTurbidez = createChartConfig("Turbidez", "Turbidez (NTU)")
   const configSolidos = createChartConfig("Sólidos Dissolvidos", "Sólidos (ppm)")
