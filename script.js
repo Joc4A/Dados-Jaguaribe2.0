@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const data = []
 
   // Tópicos MQTT para cada sensor
-  const tempTopic = "mqtt/ufpb-inst/temp"
+  const TempTopic = "mqtt/ufpb-inst/temp"
   const turbidezTopic = "mqtt/ufpb-inst/turbidez"
   const solidosTopic = "mqtt/ufpb-inst/solidos_dissolvidos"
   const condutividadeTopic = "mqtt/ufpb-inst/condutividade"
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const UmidadeTopic = "mqtt/ufpb-inst/umidade"
 
   // Inscrever nos tópicos
-  client.subscribe(tempTopic)
+  client.subscribe(TempTopic)
   client.subscribe(turbidezTopic)
   client.subscribe(solidosTopic)
   client.subscribe(condutividadeTopic)
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         x: {
           title: {
             display: true,
-            text: "tempo",
+            text: "Tempo",
             color: "#EEEEEE",
           },
           ticks: {
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Criar configurações para cada gráfico 
   //configurações da linha vertical
-  const configtemp = createChartConfig("temperatura", "temperatura (°C)")
+  const configTemp = createChartConfig("Temperatura", "Temperatura (°C)")
   const configTurbidez = createChartConfig("Turbidez", "Turbidez (NTU)")
   const configSolidos = createChartConfig("Sólidos Dissolvidos", "Sólidos (ppm)")
   const configCondutividade = createChartConfig("Condutividade", "Condutividade (μS/cm)")
@@ -112,11 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const configUmidade = createChartConfig("Umidade", "Umidade (%)")
 
   // Inicializar gráficos
-  const ctxtemp = document.getElementById("canvas").getContext("2d")
-  window.myLinetemp = new Chart(ctxtemp, configtemp)
+  const ctxTemp = document.getElementById("canvas").getContext("2d")
+  window.myLineTemp = new Chart(ctxTemp, configTemp)
 
   const ctxUmidade = document.getElementById("canvasUmidade").getContext("2d")
-  window.myLinetemp = new Chart(ctxUmidade, configUmidade)
+  window.myLineUmidade = new Chart(ctxUmidade, configUmidade)
 
   const ctxTurbidez = document.getElementById("canvasTurbidez").getContext("2d")
   window.myLineTurbidez = new Chart(ctxTurbidez, configTurbidez)
@@ -140,13 +140,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let sensorName = ""
 
     switch (topic) {
-      case tempTopic:
-        chart = window.myLinetemp
+      case TempTopic:
+        chart = window.myLineTemp
         unit = "ºC"
-        sensorName = "temperatura"
+        sensorName = "Temperatura"
         break
       case UmidadeTopic:
-        chart = window.myLinetemp
+        chart = window.myLineUmidade
         unit = "%"
         sensorName = "Umidade"
         break
@@ -210,8 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let sensorId = ""
 
     switch (topic) {
-      case tempTopic:
-        sensorId = "temp"
+      case TempTopic:
+        sensorId = "Temp"
         break
       case UmidadeTopic:
         sensorId = "Umidade"
