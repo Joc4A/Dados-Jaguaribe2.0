@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     switch (topic) {
       case TempTopic:
-        sensorId = "Temp"
+        sensorId = "temp"
         break
       case UmidadeTopic:
         sensorId = "Umidade"
