@@ -42,6 +42,22 @@ body {
   border-bottom: 1px solid var(--border-color);
 }
 
+/* Added header logo and title section styles */
+.header-title-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+}
+
 .header-content h1 {
   font-size: 2rem;
   font-weight: 700;
