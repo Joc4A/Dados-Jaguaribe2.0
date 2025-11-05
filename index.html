@@ -14,15 +14,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-
-
-
 <body>
     <div class="container">
         <header class="header">
+            <!-- Added logo to the left of the title -->
             <div class="header-content">
-                <h1>Dashboard Jaguaribe Vive</h1>
-                <p class="subtitle">Monitoramento em Tempo Real</p>
+                <div class="header-title-section">
+                    <img src="public/logo-jaguaribe-vive.png" alt="Logo Jaguaribe Vive" class="header-logo">
+                    <div>
+                        <h1>Dashboard Jaguaribe Vive</h1>
+                        <p class="subtitle">Monitoramento em Tempo Real</p>
+                    </div>
+                </div>
             </div>
             <!-- Atualizando indicador de status para mostrar conexão MQTT -->
             <div class="status-indicator" id="statusInfo">
