@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const solidosTopic = "mqtt/ufpb-inst/solidos_dissolvidos"
   const condutividadeTopic = "mqtt/ufpb-inst/condutividade"
   const phTopic = "mqtt/ufpb-inst/ph"
-  const UmidadeTopic = "mqtt/ufpb-inst/umidade"
+  const oxigenioTopic = "mqtt/ufpb-inst/oxigenio"
 
   // Inscrever nos tópicos
   client.subscribe(TempTopic)
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   client.subscribe(solidosTopic)
   client.subscribe(condutividadeTopic)
   client.subscribe(phTopic)
-  client.subscribe(UmidadeTopic)
+  client.subscribe(oxigenioTopic)
 
   // Processar mensagens recebidas
   client.on("message", (topic, payload) => {
@@ -109,14 +109,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const configSolidos = createChartConfig("Sólidos Dissolvidos", "Sólidos (ppm)")
   const configCondutividade = createChartConfig("Condutividade", "Condutividade (μS/cm)")
   const configPH = createChartConfig("pH", "pH")
-  const configUmidade = createChartConfig("Umidade", "Umidade (%)")
+  const configoxigenio = createChartConfig("oxigenio", "oxigenio (%)")
 
   // Inicializar gráficos
   const ctxTemp = document.getElementById("canvas").getContext("2d")
   window.myLineTemp = new Chart(ctxTemp, configTemp)
 
-  const ctxUmidade = document.getElementById("canvasUmidade").getContext("2d")
-  window.myLineUmidade = new Chart(ctxUmidade, configUmidade)
+  const ctxoxigenio = document.getElementById("canvasoxigenio").getContext("2d")
+  window.myLineoxigenio = new Chart(ctxoxigenio, configoxigenio)
 
   const ctxTurbidez = document.getElementById("canvasTurbidez").getContext("2d")
   window.myLineTurbidez = new Chart(ctxTurbidez, configTurbidez)
@@ -145,10 +145,10 @@ document.addEventListener("DOMContentLoaded", () => {
         unit = "ºC"
         sensorName = "Temperatura"
         break
-      case UmidadeTopic:
-        chart = window.myLineUmidade
+      case oxigenioTopic:
+        chart = window.myLineoxigenio
         unit = "%"
-        sensorName = "Umidade"
+        sensorName = "oxigenio"
         break
       case turbidezTopic:
         chart = window.myLineTurbidez
@@ -213,8 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
       case TempTopic:
         sensorId = "temp"
         break
-      case UmidadeTopic:
-        sensorId = "Umidade"
+      case oxigenioTopic:
+        sensorId = "oxigenio"
         break
       case turbidezTopic:
         sensorId = "turbidity"
